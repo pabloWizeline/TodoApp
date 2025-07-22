@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeColor="@color/gray_light"
+    app:strokeWidth="0.5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Icono de estado -->
+        <ImageView
+            android:id="@+id/statusIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_check_circle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/green"
+            tools:tint="@color/green" />
+
+        <!-- Título del todo -->
+        <TextView
+            android:id="@+id/todoTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="Título del todo"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
+            android:textStyle="normal"
+            android:maxLines="3"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@id/statusIcon"
+            app:layout_constraintStart_toEndOf="@id/statusIcon"
+            app:layout_constraintEnd_toStartOf="@id/statusText"
+            tools:text="Hacer ejercicio por la mañana temprano" />
+
+        <!-- Estado del todo -->
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completado"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:background="@drawable/status_background"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintTop_toTopOf="@id/statusIcon"
+            app:layout_constraintBottom_toBottomOf="@id/statusIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Completado"
+            tools:textColor="@color/green" />
+
+        <!-- ID del todo -->
+        <TextView
+            android:id="@+id/todoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="36dp"
+            android:text="ID: 1"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintTop_toBottomOf="@id/todoTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="ID: 123" />
+
+        <!-- ID del usuario -->
+        <TextView
+            android:id="@+id/todoUserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Usuario: 1"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintTop_toTopOf="@id/todoId"
+            app:layout_constraintStart_toEndOf="@id/todoId"
+            tools:text="Usuario: 5" />
+
+        <!-- Línea divisoria sutil -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="36dp"
+            android:background="@color/gray_light"
+            android:alpha="0.3"
+            app:layout_constraintTop_toBottomOf="@id/todoId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
