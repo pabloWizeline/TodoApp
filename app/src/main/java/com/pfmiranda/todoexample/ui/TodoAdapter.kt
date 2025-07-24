@@ -1,10 +1,11 @@
-package com.pfmiranda.todoexample
+package com.pfmiranda.todoexample.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.pfmiranda.todoexample.R
 import com.pfmiranda.todoexample.databinding.ItemTodoBinding
 import com.pfmiranda.todoexample.domain.Todo
 

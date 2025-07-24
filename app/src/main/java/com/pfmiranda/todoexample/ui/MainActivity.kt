@@ -1,23 +1,25 @@
-package com.pfmiranda.todoexample
+package com.pfmiranda.todoexample.ui
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfmiranda.todoexample.databinding.ActivityMainBinding
-import com.pfmiranda.todoexample.domain.GetTodosUseCase
-import com.pfmiranda.todoexample.domain.Todo
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    @Inject // Hilt proveerá la instancia de ApiService aquí
-    lateinit var getTodosUseCase: GetTodosUseCase
+    // Inyección del ViewModel usando Hilt y Activity KTX
+    private val viewModel: TodosViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoAdapter: TodoAdapter
@@ -26,9 +28,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        observeUiState()
         setupRecyclerView()
         setupClickListeners()
+    }
+
+    private fun observeUiState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState -> // o .collect { uiState ->
+                    when (uiState) {
+                        is UiState.Loading -> {
+                            showLoading(true)
+                        }
+                        is UiState.Success -> {
+                            showLoading(false)
+                            todoAdapter.updateTodos(uiState.data)
+                            showEmptyState(uiState.data.isEmpty())
+                            showError(false)
+                        }
+                        is UiState.Error -> {
+                            showLoading(false)
+                            showError(true, uiState.message)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -50,26 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchTodos() {
-        lifecycleScope.launch {
-            try {
-                showLoading(true)
-                val todos: Result<List<Todo>> = getTodosUseCase()
-                todos.fold(
-                    onSuccess = { todosList ->
-                        todoAdapter.updateTodos(todosList)
-                        showEmptyState(todosList.isEmpty())
-                        showError(false)
-                    },
-                    onFailure = { exception ->
-                        showError(true, exception.message)
-                    }
-                )
-            } catch (e: Exception) {
-                showError(true, e.message)
-            } finally {
-                showLoading(false)
-            }
-        }
+        viewModel.loadTodos()
     }
 
     private fun showLoading(show: Boolean) {
