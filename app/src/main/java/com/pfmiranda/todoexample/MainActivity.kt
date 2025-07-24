@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfmiranda.todoexample.databinding.ActivityMainBinding
-import com.pfmiranda.todoexample.data.TodoRepositoryImpl
+import com.pfmiranda.todoexample.domain.GetTodosUseCase
 import com.pfmiranda.todoexample.domain.Todo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject // Hilt proveerá la instancia de ApiService aquí
-    lateinit var todoRepository: TodoRepositoryImpl
+    lateinit var getTodosUseCase: GetTodosUseCase
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoAdapter: TodoAdapter
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 showLoading(true)
-                val todos: Result<List<Todo>> = todoRepository.getTodos()
+                val todos: Result<List<Todo>> = getTodosUseCase()
                 todos.fold(
                     onSuccess = { todosList ->
                         todoAdapter.updateTodos(todosList)
