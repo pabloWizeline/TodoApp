@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -9,9 +10,13 @@ android {
     namespace = "com.pfmiranda.todoexample"
     compileSdk = 35
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.12"
+    }
+
     defaultConfig {
         applicationId = "com.pfmiranda.todoexample"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -37,7 +42,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        compose = true
     }
 }
 
@@ -66,6 +71,17 @@ dependencies {
 
     // OkHttp
     implementation(libs.okhttp)
+
+    // Compose
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.icons.core)
+    implementation(libs.compose.icons.extended)
+    implementation(libs.activity.compose)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.hilt.navigation.compose)
 
     ksp(libs.hilt.compiler)
 
