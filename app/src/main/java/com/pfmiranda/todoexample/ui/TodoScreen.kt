@@ -26,11 +26,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pfmiranda.todoexample.domain.Todo
+import com.pfmiranda.todoexample.ui.theme.TodoAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,4 +110,23 @@ fun TodoScreen(
             }
         }
     )
+}
+
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun TodoScreenPreview() {
+    TodoAppTheme {
+        // val uiState by viewModel.todosState.collectAsStateWithLifecycle() // Descomenta
+        val uiState: UiState<List<Todo>> = remember { // Estado Dummy para UI
+            // UiState.Loading
+            UiState.Error("No se pudo cargar.")
+            UiState.Success(listOf(
+                Todo(1,1,"Tarea 1 Compose", true),
+                Todo(2,1,"Tarea 2 Compose", false),
+                Todo(3,2,"Tarea 3 Muy Larga Para Ver El Ellipsis Funcionando Correctamente en Varias Lineas", true)
+            ))
+        }
+        TodoScreen(uiState, {}, {})
+    }
 }
