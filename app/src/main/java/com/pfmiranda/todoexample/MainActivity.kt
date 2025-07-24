@@ -7,34 +7,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfmiranda.todoexample.databinding.ActivityMainBinding
+import com.pfmiranda.todoexample.di.TodoApiService
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject // Hilt proveerá la instancia de ApiService aquí
+    lateinit var apiService: TodoApiService
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoAdapter: TodoAdapter
-    private lateinit var apiService: TodoApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupRetrofit()
         setupRecyclerView()
         setupClickListeners()
-    }
-
-    private fun setupRetrofit() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        apiService = retrofit.create(TodoApiService::class.java)
     }
 
     private fun setupRecyclerView() {
@@ -93,11 +86,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-// Interfaz para Retrofit
-interface TodoApiService {
-    @GET("todos")
-    suspend fun getTodos(): List<Todo>
-}
 
 // Modelo de datos
 data class Todo(
