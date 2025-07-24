@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfmiranda.todoexample.databinding.ActivityMainBinding
-import com.pfmiranda.todoexample.di.TodoApiService
+import com.pfmiranda.todoexample.data.TodoRepositoryImpl
+import com.pfmiranda.todoexample.domain.Todo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject // Hilt proveerá la instancia de ApiService aquí
-    lateinit var apiService: TodoApiService
+    lateinit var todoRepository: TodoRepositoryImpl
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var todoAdapter: TodoAdapter
@@ -52,17 +53,19 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 showLoading(true)
-                val todos = apiService.getTodos()
-                todoAdapter.updateTodos(todos)
-                showEmptyState(todos.isEmpty())
-                showError(false)
+                val todos: Result<List<Todo>> = todoRepository.getTodos()
+                todos.fold(
+                    onSuccess = { todosList ->
+                        todoAdapter.updateTodos(todosList)
+                        showEmptyState(todosList.isEmpty())
+                        showError(false)
+                    },
+                    onFailure = { exception ->
+                        showError(true, exception.message)
+                    }
+                )
             } catch (e: Exception) {
-                showError(true)
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showError(true, e.message)
             } finally {
                 showLoading(false)
             }
@@ -80,17 +83,16 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.visibility = if (show) View.GONE else View.VISIBLE
     }
 
-    private fun showError(show: Boolean) {
+    private fun showError(show: Boolean, exception: String? = null) {
         binding.errorLayout.visibility = if (show) View.VISIBLE else View.GONE
         binding.recyclerView.visibility = if (show) View.GONE else View.VISIBLE
+        exception?.let {
+            Toast.makeText(
+                this@MainActivity,
+                "Error: $exception",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 
-
-// Modelo de datos
-data class Todo(
-    val id: Int,
-    val userId: Int,
-    val title: String,
-    val completed: Boolean
-)

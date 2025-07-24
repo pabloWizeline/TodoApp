@@ -1,5 +1,6 @@
 package com.pfmiranda.todoexample.di
 
+import com.pfmiranda.todoexample.data.TodoApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
