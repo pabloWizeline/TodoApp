@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pfmiranda.todoexample.databinding.ActivityMainBinding
-import com.pfmiranda.todoexample.di.TodoApiService
+import com.pfmiranda.todoexample.data.TodoApiService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

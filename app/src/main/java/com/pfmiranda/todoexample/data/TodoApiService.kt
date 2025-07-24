@@ -1,4 +1,4 @@
-package com.pfmiranda.todoexample.di
+package com.pfmiranda.todoexample.data
 
 import com.pfmiranda.todoexample.Todo
 import retrofit2.http.GET
