@@ -100,4 +100,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.arch.core.testing)
     testImplementation(libs.coroutines.test)
+    debugImplementation(libs.compose.ui.test.manifest)
+
 }
