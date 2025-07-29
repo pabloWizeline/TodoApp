@@ -19,9 +19,6 @@ class TodosViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState<List<Todo>>>(UiState.Loading) // Estado inicial
     val uiState: StateFlow<UiState<List<Todo>>> = _uiState.asStateFlow()
 
-    init {
-        loadTodos()
-    }
 
     fun loadTodos() {
         _uiState.value = UiState.Loading // Emitir estado de carga al inicio de la función
