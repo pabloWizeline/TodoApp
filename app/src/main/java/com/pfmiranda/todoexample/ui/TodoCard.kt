@@ -30,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,7 +57,7 @@ fun TodoCard(todo: Todo) {
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f).testTag("todo_title")
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
@@ -69,15 +70,16 @@ fun TodoCard(todo: Todo) {
                             shape = RoundedCornerShape(8.dp)
                         )
                         .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .testTag("todo_completed")
                 )
-            } // <- Faltaba cerrar el Row aquí
+            }
 
             Spacer(Modifier.height(8.dp))
 
             Row {
-                Text("ID: ${todo.id}", style = MaterialTheme.typography.labelSmall)
+                Text("ID: ${todo.id}", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("todo_id"))
                 Spacer(Modifier.width(16.dp))
-                Text("Usuario: ${todo.userId}", style = MaterialTheme.typography.labelSmall)
+                Text("Usuario: ${todo.userId}", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("todo_userId"))
             }
 
             Spacer(Modifier.height(8.dp))

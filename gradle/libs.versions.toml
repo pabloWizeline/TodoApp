@@ -32,6 +32,9 @@ arch-core-testing = "2.2.0"
 coroutines-test = "1.7.3"
 junitVersion = "4.12"
 
+compose-test = "1.5.4"
+junit-ext = "1.2.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -72,6 +75,10 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch-core-testing" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test" }
 junit-junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
+
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "compose-test" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose-test" }
+junit-ext = { group = "androidx.test.ext", name = "junit", version.ref = "junit-ext" }
 
 
 [plugins]
