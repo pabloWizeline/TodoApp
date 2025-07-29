@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.hilt.navigation.compose)
+    testImplementation(libs.junit.junit)
+    testImplementation(libs.coroutines.test)
 
     ksp(libs.hilt.compiler)
 

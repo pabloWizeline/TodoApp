@@ -30,6 +30,7 @@ lifecycle-runtime-compose = "2.6.2"
 mockk = "1.13.8"
 arch-core-testing = "2.2.0"
 coroutines-test = "1.7.3"
+junitVersion = "4.12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +71,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch-core-testing" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
 
 
 [plugins]
