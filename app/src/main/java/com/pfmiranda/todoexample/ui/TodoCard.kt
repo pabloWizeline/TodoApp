@@ -48,7 +48,7 @@ fun TodoCard(todo: Todo) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = if (todo.completed) Icons.Default.CheckCircle else Icons.Default.RadioButtonUnchecked,
-                    contentDescription = null,
+                    contentDescription = "Icon",
                     tint = if (todo.completed) Color(0xFF4CAF50) else Color.Gray
                 )
                 Spacer(Modifier.width(12.dp))
