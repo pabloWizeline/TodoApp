@@ -27,6 +27,10 @@ compose-material3 = "1.2.1"
 activity-compose = "1.8.2"
 lifecycle-runtime-compose = "2.6.2"
 
+mockk = "1.13.8"
+arch-core-testing = "2.2.0"
+coroutines-test = "1.7.3"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -62,6 +66,11 @@ compose-icons-extended = { group = "androidx.compose.material", name = "material
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version = "1.1.0" }
+
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch-core-testing" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
